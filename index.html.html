@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Диалоговый тренажер | Групповой режим</title>
+    <title>Диалоговый тренажер | Корпоративная версия</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -122,6 +122,63 @@
         .tab-content.active {
             display: block;
             animation: fadeIn 0.5s ease;
+        }
+
+        /* Инструкция по безопасности */
+        .security-notice {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .security-notice h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .security-list {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .security-list li {
+            margin-bottom: 8px;
+            color: #856404;
+        }
+
+        .security-list strong {
+            color: #333;
+        }
+
+        .security-agreement {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .security-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .security-checkbox input[type="checkbox"] {
+            margin-top: 3px;
+        }
+
+        .security-checkbox label {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.4;
         }
 
         /* Главная страница */
@@ -262,7 +319,7 @@
             color: #666;
         }
 
-        /* Остальные стили (прогресс, таблицы и т.д.) остаются как были */
+        /* Прогресс */
         .progress-panel {
             background: #f8f9fa;
             border-radius: 15px;
@@ -450,7 +507,7 @@
         }
 
         .history-list {
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
         }
 
@@ -543,7 +600,7 @@
             line-height: 1.2;
         }
 
-        /* Выбор вертикали */
+        /* Тренировка */
         .vertical-selection {
             margin-bottom: 30px;
         }
@@ -556,48 +613,13 @@
             text-align: center;
         }
 
-        .vertical-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-        }
-
-        .vertical-btn {
-            padding: 12px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .vertical-btn:hover {
-            background: #e9ecef;
-            transform: translateY(-2px);
-        }
-
-        .vertical-btn.active {
-            background: #10a37f;
-            color: white;
-            border-color: #0d8c6c;
-        }
-
-        /* Сценарии */
+        /* Сценарий */
         .scenario-card {
             background: #f8f9fa;
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
             border-left: 4px solid #10a37f;
-            display: none;
-        }
-
-        .scenario-card.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
         }
 
         .scenario-title {
@@ -674,6 +696,16 @@
             box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
         }
 
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 193, 7, 0.3);
+        }
+
         /* Модальные окна */
         .modal {
             display: none;
@@ -740,7 +772,7 @@
             font-size: 14px;
         }
 
-        .group-badge {
+        .vertical-badge {
             display: inline-block;
             padding: 3px 8px;
             background: #e3f2fd;
@@ -761,6 +793,7 @@
             padding: 15px;
             border-radius: 10px;
             margin-top: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .filter-row {
@@ -779,74 +812,107 @@
             min-width: 150px;
         }
 
-        /* Графики */
-        .chart-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* Анонсы */
-        .announcement {
-            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+        /* Вкладки рейтинга */
+        .rating-tabs {
+            display: flex;
+            background: #f8f9fa;
             border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #ff9800;
+            padding: 5px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
-        .announcement h3 {
-            color: #e65100;
+        .rating-tab {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 2px;
+            font-size: 13px;
+        }
+
+        .rating-tab.active {
+            background: #10a37f;
+            color: white;
+        }
+
+        /* Сообщения */
+        .error-message {
+            background: #fee;
+            border: 1px solid #f99;
+            color: #c00;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .success-message {
+            background: #efe;
+            border: 1px solid #9f9;
+            color: #090;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        /* Загрузка */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #10a37f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Правила никнейма */
+        .nickname-rules {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        .nickname-rules h4 {
+            color: #333;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        /* Новости группы */
-        .news-item {
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            border-left: 4px solid #4caf50;
+        .rules-list {
+            padding-left: 20px;
+            margin: 10px 0;
         }
 
-        .news-date {
-            font-size: 12px;
-            color: #666;
+        .rules-list li {
             margin-bottom: 5px;
-        }
-
-        .vertical-stats {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 15px 0;
-        }
-
-        .vertical-stat {
-            flex: 1;
-            min-width: 120px;
-            text-align: center;
-            padding: 10px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .vertical-stat .count {
-            font-size: 24px;
-            font-weight: 700;
-            color: #10a37f;
-        }
-
-        .vertical-stat .name {
-            font-size: 12px;
             color: #666;
-            margin-top: 5px;
+        }
+
+        .rules-list strong {
+            color: #333;
         }
     </style>
 </head>
@@ -856,43 +922,69 @@
         <div class="modal-content">
             <div class="result-icon">🎯</div>
             <h2 class="result-title">Диалоговый тренажер</h2>
-            <p style="margin-bottom: 20px; color: #666;">Войдите или создайте аккаунт для начала тренировок</p>
+            <p style="margin-bottom: 20px; color: #666;">Войдите или создайте аккаунт</p>
             
             <div id="loginForm">
                 <div class="form-group">
-                    <label>Имя пользователя:</label>
-                    <input type="text" id="loginUsername" placeholder="Введите ваше имя">
+                    <label>Никнейм:</label>
+                    <input type="text" id="loginUsername" placeholder="Ваш никнейм">
+                </div>
+                <div class="form-group">
+                    <label>Пароль:</label>
+                    <input type="password" id="loginPassword" placeholder="Ваш пароль">
                 </div>
                 <button class="btn btn-primary" onclick="handleLogin()" style="width: 100%; margin-bottom: 10px;">
-                    Войти
+                    <i class="fas fa-sign-in-alt"></i> Войти
                 </button>
                 <p style="text-align: center; margin: 15px 0; color: #666;">Нет аккаунта?</p>
                 <button class="btn btn-secondary" onclick="showRegisterForm()" style="width: 100%;">
-                    Создать новый аккаунт
+                    <i class="fas fa-user-plus"></i> Создать новый аккаунт
                 </button>
             </div>
             
             <div id="registerForm" style="display: none;">
                 <div class="form-group">
-                    <label>Имя пользователя:</label>
-                    <input type="text" id="registerUsername" placeholder="Придумайте уникальное имя">
+                    <label>Никнейм:</label>
+                    <input type="text" id="registerUsername" placeholder="Придумайте никнейм">
+                    <div class="nickname-rules">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Правила выбора никнейма:</h4>
+                        <p><strong>НЕ ДОПУСКАЕТСЯ:</strong></p>
+                        <ul class="rules-list">
+                            <li>Матерные слова и выражения</li>
+                            <li>Оскорбительные и унижающие ники</li>
+                            <li>Дискриминационные слова (расовые, национальные, гендерные)</li>
+                            <li>Ники с негативным подтекстом (ненависть, агрессия)</li>
+                            <li>Ссылки</li>
+                        </ul>
+                        <p style="color: #666; font-size: 12px; margin-top: 10px;">
+                            Нарушение правил ведет к блокировке аккаунта.
+                        </p>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>Группа/Отдел:</label>
-                    <select id="registerGroup">
-                        <option value="">Без группы</option>
-                        <option value="Группа 1">Группа 1</option>
-                        <option value="Группа 2">Группа 2</option>
-                        <option value="Группа 3">Группа 3</option>
-                        <option value="Преподаватель">Преподаватель</option>
-                        <option value="Другое">Другое</option>
+                    <label>Пароль:</label>
+                    <input type="password" id="registerPassword" placeholder="Придумайте пароль (мин. 6 символов)">
+                </div>
+                <div class="form-group">
+                    <label>Ваша основная вертикаль:</label>
+                    <select id="registerVertical">
+                        <option value="">Выберите вертикаль</option>
+                        <option value="loyalty">💳 Программа лояльности</option>
+                        <option value="opk">🏪 ОПК</option>
+                        <option value="market">🛒 Маркет</option>
+                        <option value="foodtech">🥗 Фудтех</option>
+                        <option value="assembly">📦 Сборка</option>
+                        <option value="pharmacy">💊 Аптека</option>
                     </select>
+                    <p style="font-size: 12px; color: #666; margin-top: 5px;">
+                        Выберите один раз. Это будет ваша основная тема для тренировок.
+                    </p>
                 </div>
                 <button class="btn btn-primary" onclick="handleRegister()" style="width: 100%; margin-bottom: 10px;">
-                    Зарегистрироваться
+                    <i class="fas fa-check"></i> Зарегистрироваться
                 </button>
                 <button class="btn btn-secondary" onclick="showLoginForm()" style="width: 100%;">
-                    Назад ко входу
+                    <i class="fas fa-arrow-left"></i> Назад ко входу
                 </button>
             </div>
         </div>
@@ -903,16 +995,59 @@
             <div class="user-panel" id="userPanel">
                 <div class="user-info">
                     <span id="currentUserName"></span>
-                    <span class="group-badge" id="userGroupBadge"></span>
+                    <span class="vertical-badge" id="userVerticalBadge"></span>
                 </div>
-                <button class="logout-btn" onclick="logout()">Выйти</button>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
             </div>
             
             <h1>💬 Диалоговый тренажер</h1>
-            <p>Групповой режим | Реальные сценарии</p>
+            <p>Корпоративная версия | Облачная синхронизация</p>
         </div>
 
         <div class="content">
+            <!-- Инструкция по безопасности -->
+            <div class="security-notice" id="securityNotice">
+                <h3><i class="fas fa-shield-alt"></i> 🔒 Инструкция по безопасности в диалогах:</h3>
+                <p><strong>ЗАПРЕЩЕНО указывать в диалогах:</strong></p>
+                
+                <p><strong>Конфиденциальную информацию компании</strong></p>
+                <ul class="security-list">
+                    <li>Внутренние процессы, технологии</li>
+                    <li>Данные о клиентах и партнерах</li>
+                    <li>Финансовую информацию</li>
+                    <li>Стратегические планы</li>
+                </ul>
+                
+                <p><strong>Персональные данные</strong></p>
+                <ul class="security-list">
+                    <li>Паспортные данные</li>
+                    <li>Номера телефонов, адреса</li>
+                    <li>Данные банковских карт</li>
+                    <li>Логины и пароли</li>
+                </ul>
+                
+                <p><strong>Коммерческую тайну</strong></p>
+                <ul class="security-list">
+                    <li>Цены, скидки, условия договоров</li>
+                    <li>Маркетинговые стратегии</li>
+                    <li>Данные о сотрудниках</li>
+                </ul>
+                
+                <p><strong>РЕКОМЕНДАЦИИ:</strong></p>
+                <ul class="security-list">
+                    <li>Используйте вымышленные данные в тренировочных диалогах</li>
+                    <li>Не называйте реальные имена клиентов</li>
+                    <li>Не указывайте номера заказов, договоров</li>
+                    <li>Сохраняйте конфиденциальность компании</li>
+                </ul>
+                
+                <div style="background: #dc3545; color: white; padding: 10px; border-radius: 8px; margin-top: 15px; font-size: 14px;">
+                    <i class="fas fa-exclamation-circle"></i> Нарушение правил безопасности ведет к блокировке аккаунта и дисциплинарной ответственности.
+                </div>
+            </div>
+
             <!-- Навигация -->
             <div class="tabs">
                 <div class="tab active" data-tab="home">🏠 Главная</div>
@@ -927,75 +1062,42 @@
                 <div class="welcome-section">
                     <div class="section-title">
                         <i class="fas fa-bullhorn"></i>
-                        <span>Последние обновления системы</span>
+                        <span>Последние обновления</span>
                     </div>
                     
                     <div class="updates-grid">
                         <div class="update-card">
-                            <h3><i class="fas fa-sync-alt"></i> Версия 2.0</h3>
-                            <span class="date">01.12.2024</span>
+                            <h3><i class="fas fa-sync-alt"></i> Облачная система</h3>
+                            <span class="date">05.12.2024</span>
                             <ul>
-                                <li>Добавлен раздельный рейтинг по вертикалям</li>
-                                <li>Новая главная страница с новостями</li>
-                                <li>Статистика группы в реальном времени</li>
-                                <li>Улучшена система достижений</li>
+                                <li>Данные сохраняются в облаке</li>
+                                <li>Работайте с любого компьютера</li>
+                                <li>Рейтинг обновляется в реальном времени</li>
+                                <li>Нет риска потери прогресса</li>
                             </ul>
                         </div>
                         
                         <div class="update-card">
-                            <h3><i class="fas fa-rocket"></i> Планы на декабрь</h3>
-                            <span class="date">До 31.12.2024</span>
+                            <h3><i class="fas fa-trophy"></i> Новый рейтинг</h3>
+                            <span class="date">05.12.2024</span>
                             <ul>
-                                <li>Турнир между группами</li>
-                                <li>Новые сценарии диалогов</li>
-                                <li>Система соревнований на время</li>
-                                <li>Личные консультации от топ-игроков</li>
+                                <li>Общий рейтинг всех сотрудников</li>
+                                <li>Рейтинги по каждой вертикали</li>
+                                <li>Сравнение с коллегами</li>
+                                <li>Мотивационная система XP</li>
                             </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="section-title">
-                        <i class="fas fa-newspaper"></i>
-                        <span>Новости для группы</span>
-                    </div>
-                    
-                    <div id="groupNews">
-                        <!-- Новости будут загружаться динамически -->
-                    </div>
-                    
-                    <div class="section-title">
-                        <i class="fas fa-calendar-check"></i>
-                        <span>Анонсы предстоящих тем</span>
-                    </div>
-                    
-                    <div class="announcement">
-                        <h3><i class="fas fa-star"></i> На следующей неделе:</h3>
-                        <div class="vertical-stats" id="nextWeekTopics">
-                            <!-- Анонсы будут загружаться динамически -->
                         </div>
                     </div>
                     
                     <div class="section-title">
                         <i class="fas fa-chart-line"></i>
-                        <span>Статистика группы</span>
+                        <span>Ваша статистика</span>
                     </div>
                     
-                    <div class="stats-cards">
-                        <div class="stat-card">
-                            <div class="value" id="groupTotalSessions">0</div>
-                            <div class="label">Всего тренировок в группе</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="value" id="groupAvgScore">0.0</div>
-                            <div class="label">Средний балл группы</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="value" id="groupTotalUsers">0</div>
-                            <div class="label">Активных участников</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="value" id="groupTotalXP">0</div>
-                            <div class="label">Общий опыт группы</div>
+                    <div class="stats-cards" id="homeStats">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Загрузка статистики...</p>
                         </div>
                     </div>
                     
@@ -1009,7 +1111,7 @@
                             <i class="fas fa-dumbbell"></i>
                             <div class="text">
                                 <div class="title">Начать тренировку</div>
-                                <div class="desc">Выберите сценарий и начните отработку</div>
+                                <div class="desc">Отработайте свой сценарий</div>
                             </div>
                         </a>
                         
@@ -1017,7 +1119,7 @@
                             <i class="fas fa-trophy"></i>
                             <div class="text">
                                 <div class="title">Посмотреть рейтинг</div>
-                                <div class="desc">Узнайте свои позиции в группе</div>
+                                <div class="desc">Узнайте свои позиции</div>
                             </div>
                         </a>
                         
@@ -1042,41 +1144,69 @@
 
             <!-- Вкладка Тренировка -->
             <div class="tab-content" id="training-tab">
-                <!-- Выбор вертикали -->
                 <div class="vertical-selection">
-                    <div class="vertical-title">🎯 Выберите сценарий:</div>
-                    <div class="vertical-options">
-                        <div class="vertical-btn" data-vertical="loyalty">Программа лояльности</div>
-                        <div class="vertical-btn" data-vertical="opk">ОПК</div>
-                        <div class="vertical-btn" data-vertical="market">Маркет</div>
-                        <div class="vertical-btn" data-vertical="foodtech">Фудтех</div>
-                        <div class="vertical-btn" data-vertical="assembly">Сборка</div>
-                        <div class="vertical-btn" data-vertical="pharmacy">Аптека</div>
+                    <div class="vertical-title">
+                        <i class="fas fa-bullseye"></i>
+                        <span>Ваша вертикаль: <span id="userVerticalName" style="color: #10a37f;"></span></span>
+                    </div>
+                    <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                        Вы тренируетесь только в своей основной вертикали. Выбор вертикали осуществляется один раз при регистрации.
+                    </p>
+                </div>
+
+                <!-- Подтверждение безопасности -->
+                <div class="security-agreement" id="securityAgreement">
+                    <h3><i class="fas fa-shield-alt"></i> Подтверждение безопасности</h3>
+                    <div class="security-checkbox">
+                        <input type="checkbox" id="securityConfirm">
+                        <label>
+                            <strong>Я подтверждаю, что прочитал инструкцию по безопасности и обязуюсь:</strong><br>
+                            1. Не указывать конфиденциальную информацию компании<br>
+                            2. Не использовать персональные данные клиентов<br>
+                            3. Не раскрывать коммерческую тайну<br>
+                            4. Использовать только вымышленные данные в тренировочных диалогах
+                        </label>
+                    </div>
+                    <div style="color: #dc3545; font-size: 13px; margin-top: 10px;">
+                        <i class="fas fa-exclamation-circle"></i> Без подтверждения тренировка недоступна.
                     </div>
                 </div>
 
                 <!-- Сценарий -->
                 <div class="scenario-card" id="scenarioCard">
                     <div class="scenario-title">
-                        <span id="scenarioTitle">Заблокированная карта лояльности</span>
+                        <i class="fas fa-comments"></i>
+                        <span id="scenarioTitle">Загрузка сценария...</span>
                     </div>
                     <div class="scenario-details" id="scenarioDescription">
-                        Клиент обращается по поводу блокировки карты. Определите его эмоциональное состояние и адаптируйте стиль общения.
+                        Подготовка к тренировке...
                     </div>
                     
                     <div class="action-buttons" id="actionButtons">
                         <button class="btn btn-secondary" onclick="copyPrompt()" id="copyBtn">
-                            <span>📋</span>
+                            <i class="fas fa-copy"></i>
                             Скопировать инструкцию
                         </button>
                         <button class="btn btn-primary" id="startBtn" onclick="startTraining()" disabled>
-                            <span>🚀</span>
+                            <i class="fas fa-rocket"></i>
                             Начать тренировку
                         </button>
                         <button class="btn btn-success" id="completeBtn" onclick="completeTraining()" style="display: none;">
-                            <span>🏁</span>
+                            <i class="fas fa-flag-checkered"></i>
                             Завершить тренировку
                         </button>
+                    </div>
+                    
+                    <div id="trainingInstructions" style="margin-top: 20px; padding: 15px; background: #f0f9f6; border-radius: 10px; display: none;">
+                        <h4><i class="fas fa-info-circle"></i> Инструкция:</h4>
+                        <ol style="margin: 10px 0 0 20px; color: #555;">
+                            <li>Скопируйте инструкцию выше</li>
+                            <li>Откройте <a href="https://chat.deepseek.com" target="_blank">chat.deepseek.com</a></li>
+                            <li>Вставьте инструкцию в чат</li>
+                            <li>Пройдите диалог за 15 минут</li>
+                            <li>Получите оценку от DeepSeek</li>
+                            <li>Вернитесь сюда и введите оценку</li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -1124,6 +1254,7 @@
                 <!-- График прогресса -->
                 <div class="badges-section">
                     <div class="section-title">
+                        <i class="fas fa-chart-line"></i>
                         <span>📈 График прогресса</span>
                     </div>
                     <div class="chart-container">
@@ -1134,20 +1265,28 @@
                 <!-- Бейджи -->
                 <div class="badges-section">
                     <div class="section-title">
+                        <i class="fas fa-award"></i>
                         <span>🏅 Ваши достижения</span>
                     </div>
                     <div class="badges-grid" id="badgesGrid">
-                        <!-- Бейджи будут добавлены через JS -->
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Загрузка достижений...</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Статистика по вертикалям -->
+                <!-- Статистика -->
                 <div class="badges-section">
                     <div class="section-title">
-                        <span>📊 Статистика по вертикалям</span>
+                        <i class="fas fa-chart-bar"></i>
+                        <span>📊 Ваша статистика</span>
                     </div>
-                    <div class="badges-grid" id="verticalsStats">
-                        <!-- Статистика по вертикалям -->
+                    <div id="userStatsContainer">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Загрузка статистики...</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1156,55 +1295,38 @@
             <div class="tab-content" id="leaderboard-tab">
                 <div class="leaderboard">
                     <div class="leaderboard-title">
+                        <i class="fas fa-trophy"></i>
                         <span>🏆 Таблица лидеров</span>
-                        <div class="filter-row">
-                            <select id="leaderboardFilter" onchange="updateLeaderboard()" class="filter-select">
-                                <option value="all">Общий рейтинг</option>
-                                <option value="loyalty">Программа лояльности</option>
-                                <option value="opk">ОПК</option>
-                                <option value="market">Маркет</option>
-                                <option value="foodtech">Фудтех</option>
-                                <option value="assembly">Сборка</option>
-                                <option value="pharmacy">Аптека</option>
-                            </select>
-                            
-                            <select id="groupFilter" onchange="updateLeaderboard()" class="filter-select">
-                                <option value="all">Все группы</option>
-                                <option value="no_group">Без группы</option>
-                                <!-- Группы будут добавлены динамически -->
-                            </select>
-                            
-                            <select id="periodFilter" onchange="updateLeaderboard()" class="filter-select">
-                                <option value="all">За всё время</option>
-                                <option value="week">За неделю</option>
-                                <option value="month">За месяц</option>
-                            </select>
-                            
-                            <select id="sortFilter" onchange="updateLeaderboard()" class="filter-select">
-                                <option value="xp">По опыту (XP)</option>
-                                <option value="sessions">По количеству тренировок</option>
-                                <option value="avgScore">По среднему баллу</option>
-                                <option value="streak">По серии дней</option>
-                            </select>
-                        </div>
                     </div>
                     
-                    <table class="leaderboard-table">
-                        <thead>
-                            <tr>
-                                <th class="rank">#</th>
-                                <th>Сотрудник</th>
-                                <th>Группа</th>
-                                <th>Уровень</th>
-                                <th>Тренировок</th>
-                                <th>Средний балл</th>
-                                <th>XP</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboardBody">
-                            <!-- Данные будут добавлены через JS -->
-                        </tbody>
-                    </table>
+                    <!-- Вкладки рейтинга -->
+                    <div class="rating-tabs" id="ratingTabs">
+                        <!-- Загружается динамически -->
+                    </div>
+                    
+                    <!-- Фильтры -->
+                    <div class="filter-row">
+                        <select id="periodFilter" onchange="renderLeaderboard()" class="filter-select">
+                            <option value="all">За всё время</option>
+                            <option value="week">За неделю</option>
+                            <option value="month">За месяц</option>
+                        </select>
+                        
+                        <select id="sortFilter" onchange="renderLeaderboard()" class="filter-select">
+                            <option value="xp">По опыту (XP)</option>
+                            <option value="sessions">По количеству тренировок</option>
+                            <option value="avgScore">По среднему баллу</option>
+                            <option value="streak">По серии дней</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Таблица рейтинга -->
+                    <div id="leaderboardContainer">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Загрузка рейтинга...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1212,24 +1334,22 @@
             <div class="tab-content" id="history-tab">
                 <div class="history">
                     <div class="history-title">
+                        <i class="fas fa-history"></i>
                         <span>📜 История тренировок</span>
                         <div class="filter-row">
                             <select id="historyFilter" onchange="renderHistory()" class="filter-select">
                                 <option value="all">Все тренировки</option>
                                 <option value="week">За неделю</option>
                                 <option value="month">За месяц</option>
-                                <option value="loyalty">Программа лояльности</option>
-                                <option value="opk">ОПК</option>
-                                <option value="market">Маркет</option>
-                                <option value="foodtech">Фудтех</option>
-                                <option value="assembly">Сборка</option>
-                                <option value="pharmacy">Аптека</option>
                             </select>
                         </div>
                     </div>
                     
                     <div class="history-list" id="historyList">
-                        <!-- История будет добавлена через JS -->
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Загрузка истории...</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1242,7 +1362,7 @@
                     <div class="result-xp" id="resultXP">+50 XP</div>
                     <p id="resultMessage">Вы успешно завершили тренировку!</p>
                     <button class="btn btn-primary" onclick="closeResultModal()" style="margin-top: 20px;">
-                        Продолжить
+                        <i class="fas fa-check"></i> Продолжить
                     </button>
                 </div>
             </div>
@@ -1250,170 +1370,153 @@
     </div>
 
     <script>
-        // ============= СИСТЕМА АУТЕНТИФИКАЦИИ =============
+        // ============= КОНФИГУРАЦИЯ СИСТЕМЫ =============
         
-        class AuthSystem {
-            constructor() {
-                this.currentUser = null;
-                this.users = [];
-                this.loadUsers();
-            }
-            
-            loadUsers() {
-                try {
-                    this.users = JSON.parse(localStorage.getItem('dialogue_users')) || [];
-                    const savedUser = localStorage.getItem('dialogue_currentUser');
-                    if (savedUser) {
-                        this.currentUser = JSON.parse(savedUser);
-                        this.showMainApp();
-                    } else {
-                        this.showAuthModal();
-                    }
-                } catch (e) {
-                    console.error('Ошибка загрузки пользователей:', e);
-                    this.users = [];
-                    this.showAuthModal();
-                }
-            }
-            
-            register(username, group = '') {
-                // Проверяем уникальность имени
-                if (this.users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
-                    return { success: false, message: 'Имя уже занято' };
-                }
-                
-                if (username.length < 2) {
-                    return { success: false, message: 'Имя должно быть не менее 2 символов' };
-                }
-                
-                const newUser = {
-                    id: Date.now().toString(),
-                    username: username.trim(),
-                    group: group.trim(),
-                    registrationDate: new Date().toISOString(),
-                    stats: {
-                        totalXP: 0,
-                        currentLevel: 1,
-                        completedSessions: 0,
-                        totalScore: 0,
-                        averageScore: 0,
-                        currentStreak: 0,
-                        lastTrainingDate: null,
-                        achievementsUnlocked: ["first_blood"],
-                        verticalsCompleted: {
-                            loyalty: { sessions: 0, totalXP: 0, avgScore: 0, totalScore: 0 },
-                            opk: { sessions: 0, totalXP: 0, avgScore: 0, totalScore: 0 },
-                            market: { sessions: 0, totalXP: 0, avgScore: 0, totalScore: 0 },
-                            foodtech: { sessions: 0, totalXP: 0, avgScore: 0, totalScore: 0 },
-                            assembly: { sessions: 0, totalXP: 0, avgScore: 0, totalScore: 0 },
-                            pharmacy: { sessions: 0, totalXP: 0, avgScore: 0, totalScore: 0 }
-                        },
-                        trainingHistory: []
-                    }
-                };
-                
-                this.users.push(newUser);
-                this.currentUser = newUser;
-                
-                localStorage.setItem('dialogue_users', JSON.stringify(this.users));
-                localStorage.setItem('dialogue_currentUser', JSON.stringify(newUser));
-                
-                this.updateGroupFilter();
-                
-                return { success: true, user: newUser };
-            }
-            
-            login(username) {
-                const user = this.users.find(u => u.username.toLowerCase() === username.toLowerCase());
-                if (user) {
-                    this.currentUser = user;
-                    localStorage.setItem('dialogue_currentUser', JSON.stringify(user));
-                    this.showMainApp();
-                    return { success: true, user: user };
-                }
-                return { success: false, message: 'Пользователь не найден' };
-            }
-            
-            logout() {
-                this.currentUser = null;
-                localStorage.removeItem('dialogue_currentUser');
-                this.showAuthModal();
-            }
-            
-            showAuthModal() {
-                document.getElementById('authModal').style.display = 'flex';
-                document.getElementById('mainContainer').style.display = 'none';
-            }
-            
-            showMainApp() {
-                document.getElementById('authModal').style.display = 'none';
-                document.getElementById('mainContainer').style.display = 'block';
-                this.updateUserUI();
-                loadStats();
-                updateGroupFilter();
-                loadHomePageData();
-            }
-            
-            updateUserUI() {
-                if (this.currentUser) {
-                    document.getElementById('currentUserName').textContent = this.currentUser.username;
-                    const groupBadge = document.getElementById('userGroupBadge');
-                    if (this.currentUser.group) {
-                        groupBadge.textContent = this.currentUser.group;
-                        groupBadge.style.display = 'inline-block';
-                    } else {
-                        groupBadge.style.display = 'none';
-                    }
-                }
-            }
-            
-            updateGroupFilter() {
-                const groupFilter = document.getElementById('groupFilter');
-                const currentValue = groupFilter.value;
-                
-                const groups = new Set();
-                this.users.forEach(user => {
-                    if (user.group) {
-                        groups.add(user.group);
-                    }
-                });
-                
-                groupFilter.innerHTML = `
-                    <option value="all">Все группы</option>
-                    <option value="no_group">Без группы</option>
-                    <option value="my_group">Моя группа</option>
-                `;
-                
-                groups.forEach(group => {
-                    if (group) {
-                        groupFilter.innerHTML += `<option value="${group}">${group}</option>`;
-                    }
-                });
-                
-                groupFilter.value = currentValue;
-            }
-            
-            getAllUsers() {
-                return this.users;
-            }
-            
-            getGroupStats(groupName = null) {
-                let users = this.users;
-                if (groupName === 'my_group' && this.currentUser && this.currentUser.group) {
-                    users = users.filter(u => u.group === this.currentUser.group);
-                } else if (groupName && groupName !== 'all' && groupName !== 'no_group' && groupName !== 'my_group') {
-                    users = users.filter(u => u.group === groupName);
-                } else if (groupName === 'no_group') {
-                    users = users.filter(u => !u.group || u.group === '');
-                }
-                
-                return users;
-            }
-        }
+        // TODO: Замените эти значения на свои
+        const GOOGLE_SHEETS_ID = '1ayBxrHAUvmMxZuwTMx0_-HfLHfwMBtZCA3zivXN2pvo';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLYFtV9K-pr9O1zjF4zPCfTLve5bTExDsvfc1otmuS8HX5xiRjizd0D55FxdkPpwXV/exec';
+        
+        // Вертикали
+        const verticals = {
+            loyalty: { 
+                name: "Программа лояльности", 
+                icon: "💳", 
+                color: "#4CAF50",
+                prompt: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, у которого заблокировали карту лояльности.
 
-        // ============= СИСТЕМА ПРОГРЕССА =============
-        
-        const auth = new AuthSystem();
+Выбери случайно один из четырех типов поведения и строго придерживайся его на протяжении всего диалога:
+
+1. МОЛЧАЛИВЫЙ КЛИЕНТ - отвечаешь минимально, односложно, раздражаешься на множество вопросов
+2. ПОЗИТИВНЫЙ КЛИЕНТ - общаешься неформально, шутишь, используешь эмодзи, обижаешься на шаблонные ответы  
+3. КОНТРОЛИРУЮЩИЙ КЛИЕНТ - требуешь детали, проверяешь компетентность, задаешь уточняющие вопросы, можешь давить
+4. НЕГАТИВНЫЙ КЛИЕНТ - настроен скептически, выражаешь недовольство, можешь быть грубоватым
+
+ВЕДИ СЕБЯ ЕСТЕСТВЕННО В РАМКАХ ВЫБРАННОЙ РОЛИ. Не говори явно, какой тип ты выбрал. Не указывай эмоции в скобках. Просто общайся так, как общался бы реальный клиент такого типа.
+
+Оцени мою работу в конце по 5-балльной шкале и дай обратную связь: 
+- Насколько точно я определил твой тип?
+- Насколько хорошо адаптировался к твоему стилю общения?
+- Какие техники коммуникации были эффективны?
+
+Время - 15 минут. 
+Начинай за клиента.`
+            },
+            opk: { 
+                name: "ОПК", 
+                icon: "🏪", 
+                color: "#2196F3",
+                prompt: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, которому нагрубил кассир.
+
+Выбери случайно один из четырех типов поведения и строго придерживайся его на протяжении всего диалога:
+
+1. МОЛЧАЛИВЫЙ КЛИЕНТ - отвечаешь минимально, односложно, раздражаешься на множество вопросов
+2. ПОЗИТИВНЫЙ КЛИЕНТ - общаешься неформально, шутишь, используешь эмодзи, обижаешься на шаблонные ответы  
+3. КОНТРОЛИРУЮЩИЙ КЛИЕНТ - требуешь детали, проверяешь компетентность, задаешь уточняющие вопросы, можешь давить
+4. НЕГАТИВНЫЙ КЛИЕНТ - настроен скептически, выражаешь недовольство, можешь быть грубоватым
+
+ВЕДИ СЕБЯ ЕСТЕСТВЕННО В РАМКАХ ВЫБРАННОЙ РОЛИ. Не говори явно, какой тип ты выбрал. Не указывай эмоции в скобках. Просто общайся так, как общался бы реальный клиент такого типа.
+
+Оцени мою работу в конце по 5-балльной шкале и дай обратную связь: 
+- Насколько точно я определил твой тип?
+- Насколько хорошо адаптировался к твоему стилю общения?
+- Какие техники коммуникации были эффективны?
+
+Время - 15 минут. 
+Ты начинаешь за клиента, я буду отвечать за оператора.`
+            },
+            market: { 
+                name: "Маркет", 
+                icon: "🛒", 
+                color: "#FF9800",
+                prompt: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, которому доставили заказ, но забыли положить корм для кота.
+
+Выбери случайно один из четырех типов поведения и строго придерживайся его на протяжении всего диалога:
+
+1. МОЛЧАЛИВЫЙ КЛИЕНТ - отвечаешь минимально, односложно, раздражаешься на множество вопросов
+2. ПОЗИТИВНЫЙ КЛИЕНТ - общаешься неформально, шутишь, используешь эмодзи, обижаешься на шаблонные ответы  
+3. КОНТРОЛИРУЮЩИЙ КЛИЕНТ - требуешь детали, проверяешь компетентность, задаешь уточняющие вопросы, можешь давить
+4. НЕГАТИВНЫЙ КЛИЕНТ - настроен скептически, выражаешь недовольство, можешь быть грубоватым
+
+ВЕДИ СЕБЯ ЕСТЕСТВЕННО В РАМКАХ ВЫБРАННОЙ РОЛИ. Не говори явно, какой тип ты выбрал. Не указывай эмоции в скобках. Просто общайся так, как общался бы реальный клиент такого типа.
+
+Оцени мою работу в конце по 5-балльной шкале и дай обратную связь: 
+- Насколько точно я определил твой тип?
+- Насколько хорошо адаптировался к твоему стилю общения?
+- Какие техники коммуникации были эффективны?
+
+Время - 15 минут. 
+Начинай за клиента.`
+            },
+            foodtech: { 
+                name: "Фудтех", 
+                icon: "🥗", 
+                color: "#9C27B0",
+                prompt: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, которому привезли салат с истекшим сроком годности.
+
+Выбери случайно один из четырех типов поведения и строго придерживайся его на протяжении всего диалога:
+
+1. МОЛЧАЛИВЫЙ КЛИЕНТ - отвечаешь минимально, односложно, раздражаешься на множество вопросов
+2. ПОЗИТИВНЫЙ КЛИЕНТ - общаешься неформально, шутишь, используешь эмодзи, обижаешься на шаблонные ответы  
+3. КОНТРОЛИРУЮЩИЙ КЛИЕНТ - требуешь детали, проверяешь компетентность, задаешь уточняющие вопросы, можешь давить
+4. НЕГАТИВНЫЙ КЛИЕНТ - настроен скептически, выражаешь недовольство, можешь быть грубоватым
+
+ВЕДИ СЕБЯ ЕСТЕСТВЕННО В РАМКАХ ВЫБРАННОЙ РОЛИ. Не говори явно, какой тип ты выбрал. Не указывай эмоции в скобках. Просто общайся так, как общался бы реальный клиент такого типа.
+
+Оцени мою работу в конце по 5-балльной шкале и дай обратную связь: 
+- Насколько точно я определил твой тип?
+- Насколько хорошо адаптировался к твоему стилю общения?
+- Какие техники коммуникации были эффективны?
+
+Время - 15 минут. 
+Начинай за клиента.`
+            },
+            assembly: { 
+                name: "Сборка", 
+                icon: "📦", 
+                color: "#795548",
+                prompt: `Привет! Давай сыграем в ролевую игру. Ты будешь сотрудником, который собирает заказы для клиентов и передает их курьерам. Пришел курьер (твой коллега) и начал тебе грубить.
+
+Выбери случайно один из четырех типов поведения и строго придерживайся его на протяжении всего диалога:
+
+1. МОЛЧАЛИВЫЙ СОТРУДНИК - отвечаешь минимально, односложно, раздражаешься на множество вопросов
+2. ПОЗИТИВНЫЙ СОТРУДНИК - общаешься неформально, шутишь, используешь эмодзи, обижаешься на шаблонные ответы  
+3. КОНТРОЛИРУЮЩИЙ СОТРУДНИК - требуешь детали, проверяешь компетентность, задаешь уточняющие вопросы, можешь давить
+4. НЕГАТИВНЫЙ СОТРУДНИК - настроен скептически, выражаешь недовольство, можешь быть грубоватым
+
+ВЕДИ СЕБЯ ЕСТЕСТВЕННО В РАМКАХ ВЫБРАННОЙ РОЛИ. Не говори явно, какой тип ты выбрал. Не указывай эмоции в скобках. Просто общайся так, как общался бы реальный сотрудник такого типа.
+
+Оцени мою работу в конце по 5-балльной шкале и дай обратную связь: 
+- Насколько точно я определил твой тип?
+- Насколько хорошо адаптировался к твоему стилю общения?
+- Какие техники коммуникации были эффективны?
+
+Время - 15 минут. 
+Начинай за сотрудника.`
+            },
+            pharmacy: { 
+                name: "Аптека", 
+                icon: "💊", 
+                color: "#F44336",
+                prompt: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, который посмотрел в приложении, что в аптеке есть определенное лекарство, пришел в аптеку, а его там не оказалось.
+
+Выбери случайно один из четырех типов поведения и строго придерживайся его на протяжении всего диалога:
+
+1. МОЛЧАЛИВЫЙ КЛИЕНТ - отвечаешь минимально, односложно, раздражаешься на множество вопросов
+2. ПОЗИТИВНЫЙ КЛИЕНТ - общаешься неформально, шутишь, используешь эмодзи, обижаешься на шаблонные ответы  
+3. КОНТРОЛИРУЮЩИЙ КЛИЕНТ - требуешь детали, проверяешь компетентность, задаешь уточняющие вопросы, можешь давить
+4. НЕГАТИВНЫЙ КЛИЕНТ - настроен скептически, выражаешь недовольство, можешь быть грубоватым
+
+ВЕДИ СЕБЯ ЕСТЕСТВЕННО В РАМКАХ ВЫБРАННОЙ РОЛИ. Не говори явно, какой тип ты выбрал. Не указывай эмоции в скобках. Просто общайся так, как общался бы реальный клиент такого типа.
+
+Оцени мою работу в конце по 5-балльной шкале и дай обратную связь: 
+- Насколько точно я определил твой тип?
+- Насколько хорошо адаптировался к твоему стилю общения?
+- Какие техники коммуникации были эффективны?
+
+Время - 15 минут. 
+Начинай за клиента.`
+            }
+        };
         
         // Уровни и XP
         const levels = [
@@ -1425,7 +1528,7 @@
             { level: 6, name: "Гуру", requiredXP: 1500, badge: "🔴" },
             { level: 7, name: "Легенда", requiredXP: 2200, badge: "⭐" }
         ];
-
+        
         // Бейджи (достижения)
         const achievements = [
             { id: "first_blood", name: "Первая кровь", icon: "🎯", description: "Пройдите первую тренировку" },
@@ -1433,38 +1536,163 @@
             { id: "score_5", name: "Отличник", icon: "⭐", description: "Получите оценку 5" },
             { id: "streak_3", name: "Регулярный", icon: "🔥", description: "3 дня подряд" },
             { id: "level_3", name: "Профи", icon: "🏆", description: "Достигните 3 уровня" },
-            { id: "top_3", name: "Лидер", icon: "🥇", description: "Войдите в топ-3" },
+            { id: "top_10", name: "Топ-10", icon: "🥇", description: "Войдите в топ-10 своей вертикали" },
             { id: "consistency", name: "Стабильность", icon: "📈", description: "Средний балл 4+" },
-            { id: "all_verticals", name: "Универсал", icon: "🎭", description: "Попробуйте все вертикали" }
+            { id: "veteran", name: "Ветеран", icon: "🛡️", description: "10+ тренировок" }
         ];
-
-        // Вертикали
-        const verticals = {
-            loyalty: { name: "Программа лояльности", icon: "💳" },
-            opk: { name: "ОПК", icon: "🏪" },
-            market: { name: "Маркет", icon: "🛒" },
-            foodtech: { name: "Фудтех", icon: "🥗" },
-            assembly: { name: "Сборка", icon: "📦" },
-            pharmacy: { name: "Аптека", icon: "💊" }
-        };
-
-        // Промты (остаются без изменений)
-        const prompts = {
-            loyalty: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, у которого заблокировали карту лояльности. [Весь текст промта...]`,
-            opk: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, которому нагрубил кассир. [Весь текст промта...]`,
-            market: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, которому доставили заказ, но забыли положить корм для кота. [Весь текст промта...]`,
-            foodtech: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, которому привезли салат с истекшим сроком годности. [Весь текст промта...]`,
-            assembly: `Привет! Давай сыграем в ролевую игру. Ты будешь сотрудником, который собирает заказы для клиентов и передает их курьерам. [Весь текст промта...]`,
-            pharmacy: `Привет! Давай сыграем в ролевую игру. Ты будешь клиентом, который посмотрел в приложении, что в аптеке есть определенное лекарство, пришел в аптеку, а его там не оказалось. [Весь текст промта...]`
-        };
-
-        // Переменные тренировки
-        let selectedVertical = null;
-        let promptCopied = false;
+        
+        // Глобальные переменные
+        let currentUser = null;
+        let currentRatingTab = 'all';
         let trainingInProgress = false;
         let progressChart = null;
-
-        // ============= ФУНКЦИИ АУТЕНТИФИКАЦИИ =============
+        
+        // ============= УТИЛИТЫ =============
+        
+        function showMessage(message, type = 'error') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type === 'error' ? 'error-message' : 'success-message';
+            messageDiv.innerHTML = `<i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i> ${message}`;
+            
+            // Удаляем старые сообщения
+            document.querySelectorAll('.error-message, .success-message').forEach(el => el.remove());
+            
+            // Добавляем новое сообщение
+            document.querySelector('.content').prepend(messageDiv);
+            
+            // Автоудаление через 5 секунд
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
+        
+        function showLoading(containerId, show = true) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            if (show) {
+                container.innerHTML = `
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <p>Загрузка...</p>
+                    </div>
+                `;
+            } else {
+                const loading = container.querySelector('.loading');
+                if (loading) loading.remove();
+            }
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'short',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        // ============= GOOGLE SHEETS API (ЗАГЛУШКА) =============
+        
+        // TODO: Замените эту заглушку на реальный Google Apps Script
+        
+        async function callGoogleScript(action, data = {}) {
+            // Заглушка для демонстрации
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Демо-данные для тестирования
+            if (action === 'register') {
+                return {
+                    success: true,
+                    data: { userId: Date.now().toString() }
+                };
+            }
+            
+            if (action === 'login') {
+                // Демо-пользователь
+                return {
+                    success: true,
+                    data: {
+                        user: {
+                            id: 'demo_user_123',
+                            username: data.username || 'demo_user',
+                            vertical: 'opk',
+                            stats: {
+                                totalXP: 450,
+                                level: 3,
+                                sessions: 8,
+                                avgScore: 4.2,
+                                streak: 2,
+                                rank: 5
+                            },
+                            history: [
+                                { date: '2024-12-01', vertical: 'opk', score: 4, xp: 60, scenario: 'ОПК' },
+                                { date: '2024-11-30', vertical: 'opk', score: 5, xp: 80, scenario: 'ОПК' },
+                                { date: '2024-11-28', vertical: 'opk', score: 4, xp: 60, scenario: 'ОПК' }
+                            ],
+                            achievements: ['first_blood', 'three_sessions']
+                        }
+                    }
+                };
+            }
+            
+            if (action === 'getUserStats') {
+                return {
+                    success: true,
+                    data: {
+                        stats: {
+                            totalXP: 450,
+                            level: 3,
+                            sessions: 8,
+                            avgScore: 4.2,
+                            streak: 2,
+                            rank: 5
+                        },
+                        history: [
+                            { date: '2024-12-01', vertical: 'opk', score: 4, xp: 60, scenario: 'ОПК', icon: '🏪' },
+                            { date: '2024-11-30', vertical: 'opk', score: 5, xp: 80, scenario: 'ОПК', icon: '🏪' },
+                            { date: '2024-11-28', vertical: 'opk', score: 4, xp: 60, scenario: 'ОПК', icon: '🏪' }
+                        ],
+                        achievements: ['first_blood', 'three_sessions']
+                    }
+                };
+            }
+            
+            if (action === 'getLeaderboard') {
+                // Демо-рейтинг
+                const demoUsers = [
+                    { username: 'sale_pro', vertical: 'opk', sessions: 15, avgScore: 4.8, totalXP: 850, rank: 1 },
+                    { username: 'client_master', vertical: 'market', sessions: 12, avgScore: 4.7, totalXP: 720, rank: 2 },
+                    { username: 'dialog_expert', vertical: 'loyalty', sessions: 10, avgScore: 4.6, totalXP: 650, rank: 3 },
+                    { username: 'support_guru', vertical: 'opk', sessions: 9, avgScore: 4.5, totalXP: 580, rank: 4 },
+                    { username: 'trainer_max', vertical: 'foodtech', sessions: 8, avgScore: 4.4, totalXP: 520, rank: 5 },
+                    { username: 'best_operator', vertical: 'assembly', sessions: 7, avgScore: 4.3, totalXP: 480, rank: 6 },
+                    { username: 'quality_guard', vertical: 'pharmacy', sessions: 6, avgScore: 4.2, totalXP: 420, rank: 7 }
+                ];
+                
+                return {
+                    success: true,
+                    data: demoUsers
+                };
+            }
+            
+            if (action === 'saveTraining') {
+                return {
+                    success: true,
+                    data: { xpEarned: 60 }
+                };
+            }
+            
+            return {
+                success: false,
+                message: 'Google Script не настроен. Смотрите инструкцию в комментариях.'
+            };
+        }
+        
+        // ============= АУТЕНТИФИКАЦИЯ =============
         
         function showRegisterForm() {
             document.getElementById('loginForm').style.display = 'none';
@@ -1476,248 +1704,218 @@
             document.getElementById('loginForm').style.display = 'block';
         }
         
-        function handleRegister() {
+        async function handleRegister() {
             const username = document.getElementById('registerUsername').value.trim();
-            const group = document.getElementById('registerGroup').value;
+            const password = document.getElementById('registerPassword').value;
+            const vertical = document.getElementById('registerVertical').value;
             
+            // Валидация
             if (!username) {
-                alert('Введите имя пользователя');
+                showMessage('Введите никнейм');
                 return;
             }
             
-            const result = auth.register(username, group);
-            if (result.success) {
-                alert('Регистрация успешна!');
-                auth.showMainApp();
-            } else {
-                alert(result.message);
+            if (username.length < 3) {
+                showMessage('Никнейм должен быть не менее 3 символов');
+                return;
+            }
+            
+            if (!password || password.length < 6) {
+                showMessage('Пароль должен быть не менее 6 символов');
+                return;
+            }
+            
+            if (!vertical) {
+                showMessage('Выберите свою вертикаль');
+                return;
+            }
+            
+            try {
+                const result = await callGoogleScript('register', {
+                    username,
+                    password,
+                    vertical
+                });
+                
+                if (result.success) {
+                    showMessage('Регистрация успешна! Теперь войдите в систему', 'success');
+                    showLoginForm();
+                    document.getElementById('loginUsername').value = username;
+                } else {
+                    showMessage(result.message);
+                }
+            } catch (error) {
+                showMessage('Ошибка регистрации: ' + error.message);
             }
         }
         
-        function handleLogin() {
+        async function handleLogin() {
             const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
             
             if (!username) {
-                alert('Введите имя пользователя');
+                showMessage('Введите никнейм');
                 return;
             }
             
-            const result = auth.login(username);
-            if (!result.success) {
-                if (confirm('Пользователь не найден. Хотите создать новый аккаунт?')) {
-                    showRegisterForm();
-                    document.getElementById('registerUsername').value = username;
+            if (!password) {
+                showMessage('Введите пароль');
+                return;
+            }
+            
+            try {
+                const result = await callGoogleScript('login', {
+                    username,
+                    password
+                });
+                
+                if (result.success) {
+                    currentUser = result.data.user;
+                    localStorage.setItem('dialogue_currentUser', JSON.stringify(currentUser));
+                    showMainApp();
+                } else {
+                    showMessage(result.message);
                 }
+            } catch (error) {
+                showMessage('Ошибка входа: ' + error.message);
             }
         }
         
         function logout() {
             if (confirm('Вы уверены, что хотите выйти?')) {
-                auth.logout();
+                currentUser = null;
+                localStorage.removeItem('dialogue_currentUser');
+                showAuthModal();
             }
         }
-
-        // ============= ГЛАВНАЯ СТРАНИЦА =============
         
-        function loadHomePageData() {
-            if (!auth.currentUser) return;
-            
-            // Загружаем новости группы
-            loadGroupNews();
-            
-            // Загружаем анонсы
-            loadAnnouncements();
-            
-            // Загружаем статистику группы
-            loadGroupStats();
+        function showAuthModal() {
+            document.getElementById('authModal').style.display = 'flex';
+            document.getElementById('mainContainer').style.display = 'none';
         }
         
-        function loadGroupNews() {
-            const newsContainer = document.getElementById('groupNews');
-            const currentGroup = auth.currentUser.group || 'Общая группа';
-            
-            const news = [
-                {
-                    date: '01.12.2024',
-                    title: 'Запущен новый рейтинг по вертикалям',
-                    content: 'Теперь вы можете сравнивать свои результаты отдельно по каждой теме. Проверьте, в какой вертикали вы сильнее всего!'
-                },
-                {
-                    date: '30.11.2024',
-                    title: 'Турнир по программе лояльности',
-                    content: 'На следующей неделе стартует турнир среди всех групп. Призы: персональные консультации от топ-менеджеров.'
-                },
-                {
-                    date: '28.11.2024',
-                    title: 'Добавлены новые сценарии',
-                    content: 'В раздел "Сборка" добавлено 2 новых кейса по работе с конфликтными ситуациями внутри команды.'
-                }
-            ];
-            
-            newsContainer.innerHTML = '';
-            news.forEach(item => {
-                const newsItem = document.createElement('div');
-                newsItem.className = 'news-item';
-                newsItem.innerHTML = `
-                    <div class="news-date">${item.date} | ${currentGroup}</div>
-                    <h4>${item.title}</h4>
-                    <p>${item.content}</p>
-                `;
-                newsContainer.appendChild(newsItem);
-            });
+        function showMainApp() {
+            document.getElementById('authModal').style.display = 'none';
+            document.getElementById('mainContainer').style.display = 'block';
+            updateUserUI();
+            loadUserData();
+            setupTrainingListeners();
         }
         
-        function loadAnnouncements() {
-            const topicsContainer = document.getElementById('nextWeekTopics');
-            
-            // Определяем следующую тему на основе статистики группы
-            const groupUsers = auth.getGroupStats(auth.currentUser.group || 'all');
-            let verticalStats = {};
-            
-            // Собираем статистику по вертикалям для группы
-            groupUsers.forEach(user => {
-                Object.keys(user.stats.verticalsCompleted).forEach(vertical => {
-                    if (!verticalStats[vertical]) {
-                        verticalStats[vertical] = {
-                            sessions: 0,
-                            users: 0,
-                            totalScore: 0
-                        };
-                    }
-                    const stats = user.stats.verticalsCompleted[vertical];
-                    verticalStats[vertical].sessions += stats.sessions || 0;
-                    verticalStats[vertical].totalScore += stats.totalScore || 0;
-                    if (stats.sessions > 0) verticalStats[vertical].users++;
-                });
-            });
-            
-            // Находим вертикали с наименьшим количеством тренировок
-            const sortedVerticals = Object.entries(verticalStats)
-                .sort((a, b) => a[1].sessions - b[1].sessions)
-                .slice(0, 3);
-            
-            topicsContainer.innerHTML = '';
-            sortedVerticals.forEach(([verticalKey, stats]) => {
-                const vertical = verticals[verticalKey];
+        function updateUserUI() {
+            if (currentUser) {
+                document.getElementById('currentUserName').textContent = currentUser.username;
+                const verticalBadge = document.getElementById('userVerticalBadge');
+                const vertical = verticals[currentUser.vertical];
                 if (vertical) {
-                    const statItem = document.createElement('div');
-                    statItem.className = 'vertical-stat';
-                    statItem.innerHTML = `
-                        <div class="count">${stats.sessions}</div>
-                        <div class="name">${vertical.name}</div>
-                        <div style="font-size: 11px; color: #888; margin-top: 5px;">
-                            ${stats.users} участников
-                        </div>
-                    `;
-                    topicsContainer.appendChild(statItem);
+                    verticalBadge.textContent = vertical.name;
+                    verticalBadge.style.backgroundColor = vertical.color + '20';
+                    verticalBadge.style.color = vertical.color;
                 }
-            });
-            
-            // Если мало данных, показываем все вертикали
-            if (sortedVerticals.length === 0) {
-                Object.entries(verticals).forEach(([key, vertical]) => {
-                    const statItem = document.createElement('div');
-                    statItem.className = 'vertical-stat';
-                    statItem.innerHTML = `
-                        <div class="count">0</div>
-                        <div class="name">${vertical.name}</div>
-                        <div style="font-size: 11px; color: #888; margin-top: 5px;">
-                            Нет тренировок
-                        </div>
-                    `;
-                    topicsContainer.appendChild(statItem);
-                });
+                
+                document.getElementById('userVerticalName').textContent = vertical ? vertical.name : currentUser.vertical;
             }
         }
         
-        function loadGroupStats() {
-            if (!auth.currentUser) return;
-            
-            const groupUsers = auth.getGroupStats(auth.currentUser.group || 'all');
-            
-            let totalSessions = 0;
-            let totalScore = 0;
-            let totalXP = 0;
-            let totalUsers = groupUsers.length;
-            
-            groupUsers.forEach(user => {
-                totalSessions += user.stats.completedSessions;
-                totalScore += user.stats.totalScore;
-                totalXP += user.stats.totalXP;
-            });
-            
-            const avgScore = totalSessions > 0 ? (totalScore / totalSessions).toFixed(1) : 0;
-            
-            document.getElementById('groupTotalSessions').textContent = totalSessions;
-            document.getElementById('groupAvgScore').textContent = avgScore;
-            document.getElementById('groupTotalUsers').textContent = totalUsers;
-            document.getElementById('groupTotalXP').textContent = totalXP;
-        }
-
-        // ============= ОСНОВНЫЕ ФУНКЦИИ =============
+        // ============= ЗАГРУЗКА ДАННЫХ =============
         
-        function loadStats() {
-            if (!auth.currentUser) return;
+        async function loadUserData() {
+            if (!currentUser) return;
             
-            updateProgressUI();
-            renderBadges();
-            renderVerticalStats();
-            renderLeaderboard();
-            renderHistory();
-            renderProgressChart();
-        }
-
-        function saveStats() {
-            if (!auth.currentUser) return;
+            showLoading('homeStats');
+            showLoading('userStatsContainer');
+            showLoading('badgesGrid');
+            showLoading('historyList');
+            showLoading('leaderboardContainer');
             
-            localStorage.setItem('dialogue_users', JSON.stringify(auth.users));
-            localStorage.setItem('dialogue_currentUser', JSON.stringify(auth.currentUser));
+            try {
+                // Загружаем статистику пользователя
+                const userData = await callGoogleScript('getUserStats', {
+                    userId: currentUser.id
+                });
+                
+                if (userData && userData.success) {
+                    currentUser.stats = userData.data.stats;
+                    currentUser.history = userData.data.history;
+                    currentUser.achievements = userData.data.achievements;
+                    
+                    updateProgressUI();
+                    renderUserStats();
+                    renderBadges();
+                    renderHistory();
+                    renderProgressChart();
+                    loadHomeStats();
+                    setupRatingTabs();
+                    renderLeaderboard();
+                    loadTrainingScenario();
+                }
+            } catch (error) {
+                showMessage('Ошибка загрузки данных: ' + error.message);
+            }
         }
-
+        
         function updateProgressUI() {
-            if (!auth.currentUser) return;
+            if (!currentUser || !currentUser.stats) return;
             
-            const userStats = auth.currentUser.stats;
-            const currentLevel = levels.find(l => l.level === userStats.currentLevel) || levels[0];
-            const nextLevel = levels.find(l => l.level === userStats.currentLevel + 1);
+            const stats = currentUser.stats;
+            const currentLevel = levels.find(l => l.level === stats.level) || levels[0];
+            const nextLevel = levels.find(l => l.level === stats.level + 1);
             
-            document.getElementById('currentLevelBadge').textContent = `Уровень ${userStats.currentLevel}`;
+            document.getElementById('currentLevelBadge').textContent = `Уровень ${stats.level}`;
             document.getElementById('currentLevelName').textContent = currentLevel.name;
             
             const currentLevelXP = currentLevel.requiredXP;
             const nextLevelXP = nextLevel ? nextLevel.requiredXP : currentLevelXP + 100;
-            const xpProgress = userStats.totalXP - currentLevelXP;
+            const xpProgress = stats.totalXP - currentLevelXP;
             const xpNeeded = nextLevelXP - currentLevelXP;
             const percentage = Math.min(100, (xpProgress / xpNeeded) * 100);
             
             document.getElementById('xpFill').style.width = `${percentage}%`;
-            document.getElementById('xpText').textContent = `${userStats.totalXP}/${nextLevelXP} XP`;
+            document.getElementById('xpText').textContent = `${stats.totalXP}/${nextLevelXP} XP`;
             
-            document.getElementById('sessionsCount').textContent = userStats.completedSessions;
-            document.getElementById('avgScore').textContent = userStats.averageScore.toFixed(1);
-            document.getElementById('streakCount').textContent = userStats.currentStreak;
-            
-            updateRankPosition();
-            checkLevelUp();
+            document.getElementById('sessionsCount').textContent = stats.sessions || 0;
+            document.getElementById('avgScore').textContent = stats.avgScore ? stats.avgScore.toFixed(1) : '0';
+            document.getElementById('streakCount').textContent = stats.streak || 0;
+            document.getElementById('rankPosition').textContent = stats.rank || '-';
         }
-
-        function updateRankPosition() {
-            if (!auth.currentUser) return;
+        
+        function renderUserStats() {
+            const container = document.getElementById('userStatsContainer');
+            if (!currentUser || !currentUser.stats) return;
             
-            const allPlayers = auth.getAllUsers();
-            allPlayers.sort((a, b) => b.stats.totalXP - a.stats.totalXP);
-            const rank = allPlayers.findIndex(p => p.id === auth.currentUser.id) + 1;
-            document.getElementById('rankPosition').textContent = rank;
+            const stats = currentUser.stats;
+            const vertical = verticals[currentUser.vertical];
+            
+            container.innerHTML = `
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="value">${stats.sessions || 0}</div>
+                        <div class="label">Всего тренировок</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">${stats.avgScore ? stats.avgScore.toFixed(1) : '0'}/5</div>
+                        <div class="label">Средний балл</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">${stats.streak || 0}</div>
+                        <div class="label">Дней подряд</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">${vertical ? vertical.icon : ''}</div>
+                        <div class="label">${vertical ? vertical.name : currentUser.vertical}</div>
+                    </div>
+                </div>
+            `;
         }
-
+        
         function renderBadges() {
-            if (!auth.currentUser) return;
+            const container = document.getElementById('badgesGrid');
+            if (!currentUser || !currentUser.achievements) return;
             
-            const badgesGrid = document.getElementById('badgesGrid');
-            badgesGrid.innerHTML = '';
+            container.innerHTML = '';
             
             achievements.forEach(achievement => {
-                const isUnlocked = auth.currentUser.stats.achievementsUnlocked.includes(achievement.id);
+                const isUnlocked = currentUser.achievements.includes(achievement.id);
                 const badge = document.createElement('div');
                 badge.className = `badge ${isUnlocked ? 'earned' : 'locked'}`;
                 badge.innerHTML = `
@@ -1725,52 +1923,30 @@
                     <span class="badge-name">${achievement.name}</span>
                 `;
                 badge.title = achievement.description;
-                badgesGrid.appendChild(badge);
+                container.appendChild(badge);
             });
         }
-
-        function renderVerticalStats() {
-            if (!auth.currentUser) return;
-            
-            const verticalsStats = document.getElementById('verticalsStats');
-            verticalsStats.innerHTML = '';
-            
-            Object.entries(verticals).forEach(([key, vertical]) => {
-                const stats = auth.currentUser.stats.verticalsCompleted[key];
-                const sessions = stats ? stats.sessions : 0;
-                const avgScore = stats && stats.sessions > 0 ? (stats.totalScore / stats.sessions).toFixed(1) : 0;
-                
-                const stat = document.createElement('div');
-                stat.className = `badge ${sessions > 0 ? 'earned' : 'locked'}`;
-                stat.innerHTML = `
-                    <span class="badge-icon">${vertical.icon}</span>
-                    <span class="badge-name">${sessions}</span>
-                    <span class="badge-name" style="font-size: 9px;">${vertical.name.split(' ')[0]}</span>
-                    <span class="badge-name" style="font-size: 8px; color: #10a37f;">${avgScore}/5</span>
-                `;
-                stat.title = `${sessions} тренировок по "${vertical.name}"\nСредний балл: ${avgScore}`;
-                verticalsStats.appendChild(stat);
-            });
-        }
-
+        
         function renderProgressChart() {
-            if (!auth.currentUser) return;
-            
-            const history = auth.currentUser.stats.trainingHistory;
-            if (history.length === 0) return;
+            if (!currentUser || !currentUser.history || currentUser.history.length === 0) {
+                const container = document.querySelector('.chart-container');
+                if (container) {
+                    container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Нет данных для графика</p>';
+                }
+                return;
+            }
             
             const ctx = document.getElementById('progressChart').getContext('2d');
             
             // Группируем по дате
             const groupedData = {};
-            history.forEach(item => {
-                const date = item.date;
+            currentUser.history.forEach(item => {
+                const date = item.date.split('T')[0];
                 if (!groupedData[date]) {
-                    groupedData[date] = { date, totalXP: 0, sessions: 0, avgScore: 0 };
+                    groupedData[date] = { date, totalXP: 0, sessions: 0 };
                 }
                 groupedData[date].totalXP += item.xp;
                 groupedData[date].sessions += 1;
-                groupedData[date].avgScore = ((groupedData[date].avgScore * (groupedData[date].sessions - 1)) + item.score) / groupedData[date].sessions;
             });
             
             const dates = Object.keys(groupedData).sort();
@@ -1822,143 +1998,142 @@
                 }
             });
         }
-
-        function renderLeaderboard() {
-            const leaderboardBody = document.getElementById('leaderboardBody');
-            leaderboardBody.innerHTML = '';
+        
+        function loadHomeStats() {
+            const container = document.getElementById('homeStats');
+            if (!currentUser || !currentUser.stats) return;
             
-            const verticalFilter = document.getElementById('leaderboardFilter').value;
-            const groupFilter = document.getElementById('groupFilter').value;
-            const periodFilter = document.getElementById('periodFilter').value;
-            const sortFilter = document.getElementById('sortFilter').value;
+            const stats = currentUser.stats;
+            const vertical = verticals[currentUser.vertical];
             
-            let players = auth.getAllUsers();
+            container.innerHTML = `
+                <div class="stat-card">
+                    <div class="value">${stats.sessions || 0}</div>
+                    <div class="label">Тренировок пройдено</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value">${stats.avgScore ? stats.avgScore.toFixed(1) : '0'}/5</div>
+                    <div class="label">Средняя оценка</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value">${stats.totalXP || 0}</div>
+                    <div class="label">Всего XP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value">${vertical ? vertical.icon : ''}</div>
+                    <div class="label">Ваша вертикаль</div>
+                </div>
+            `;
+        }
+        
+        // ============= РЕЙТИНГ =============
+        
+        function setupRatingTabs() {
+            const container = document.getElementById('ratingTabs');
+            if (!container) return;
             
-            // Фильтр по группе
-            if (groupFilter === 'no_group') {
-                players = players.filter(p => !p.group || p.group === '');
-            } else if (groupFilter === 'my_group' && auth.currentUser && auth.currentUser.group) {
-                players = players.filter(p => p.group === auth.currentUser.group);
-            } else if (groupFilter !== 'all' && groupFilter !== 'no_group' && groupFilter !== 'my_group') {
-                players = players.filter(p => p.group === groupFilter);
-            }
+            let tabs = '<div class="rating-tab active" data-rating="all" onclick="switchRatingTab(\'all\')">Общий рейтинг</div>';
             
-            // Если выбран конкретный вертикаль, фильтруем и сортируем по нему
-            if (verticalFilter !== 'all') {
-                players = players.map(player => {
-                    const verticalStats = player.stats.verticalsCompleted[verticalFilter] || { 
-                        sessions: 0, 
-                        totalXP: 0, 
-                        avgScore: 0,
-                        totalScore: 0 
-                    };
-                    
-                    const avgScore = verticalStats.sessions > 0 
-                        ? (verticalStats.totalScore / verticalStats.sessions).toFixed(1) 
-                        : 0;
-                    
-                    return {
-                        ...player,
-                        verticalStats: {
-                            sessions: verticalStats.sessions || 0,
-                            xp: verticalStats.totalXP || 0,
-                            avgScore: parseFloat(avgScore) || 0
-                        }
-                    };
+            Object.entries(verticals).forEach(([key, vertical]) => {
+                tabs += `<div class="rating-tab" data-rating="${key}" onclick="switchRatingTab('${key}')">${vertical.icon} ${vertical.name}</div>`;
+            });
+            
+            container.innerHTML = tabs;
+        }
+        
+        function switchRatingTab(tab) {
+            currentRatingTab = tab;
+            
+            // Обновляем активную вкладку
+            document.querySelectorAll('.rating-tab').forEach(el => {
+                el.classList.remove('active');
+                if (el.dataset.rating === tab) {
+                    el.classList.add('active');
+                }
+            });
+            
+            renderLeaderboard();
+        }
+        
+        async function renderLeaderboard() {
+            const container = document.getElementById('leaderboardContainer');
+            if (!container) return;
+            
+            showLoading('leaderboardContainer', true);
+            
+            try {
+                const result = await callGoogleScript('getLeaderboard', {
+                    vertical: currentRatingTab === 'all' ? null : currentRatingTab,
+                    period: document.getElementById('periodFilter').value,
+                    sortBy: document.getElementById('sortFilter').value
                 });
                 
-                // Фильтруем тех, у кого есть тренировки в этой вертикали
-                players = players.filter(p => p.verticalStats.sessions > 0);
-                
-                // Сортировка по выбранному критерию
-                switch(sortFilter) {
-                    case 'sessions':
-                        players.sort((a, b) => b.verticalStats.sessions - a.verticalStats.sessions);
-                        break;
-                    case 'avgScore':
-                        players.sort((a, b) => b.verticalStats.avgScore - a.verticalStats.avgScore);
-                        break;
-                    case 'streak':
-                        players.sort((a, b) => b.stats.currentStreak - a.stats.currentStreak);
-                        break;
-                    case 'xp':
-                    default:
-                        players.sort((a, b) => b.verticalStats.xp - a.verticalStats.xp);
+                if (result && result.success) {
+                    const users = result.data;
+                    
+                    if (users.length === 0) {
+                        container.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">Нет данных для отображения</p>';
+                        return;
+                    }
+                    
+                    let html = `
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th class="rank">#</th>
+                                    <th>Сотрудник</th>
+                                    <th>Вертикаль</th>
+                                    <th>Тренировок</th>
+                                    <th>Средний балл</th>
+                                    <th>Общий XP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    
+                    users.forEach((user, index) => {
+                        const vertical = verticals[user.vertical];
+                        const isCurrentUser = currentUser && user.username === currentUser.username;
+                        const rankClass = index < 3 ? `rank-${index + 1}` : '';
+                        
+                        html += `
+                            <tr ${isCurrentUser ? 'class="player-you"' : ''}>
+                                <td class="rank ${rankClass}">${index + 1}</td>
+                                <td class="player-name">${user.username} ${isCurrentUser ? '<span style="color: #10a37f;">(Вы)</span>' : ''}</td>
+                                <td>
+                                    <div class="vertical-cell">
+                                        ${vertical ? vertical.icon : ''}
+                                        ${vertical ? vertical.name : user.vertical}
+                                    </div>
+                                </td>
+                                <td>${user.sessions}</td>
+                                <td>${user.avgScore.toFixed(1)}</td>
+                                <td><strong>${user.totalXP}</strong></td>
+                            </tr>
+                        `;
+                    });
+                    
+                    html += `
+                            </tbody>
+                        </table>
+                    `;
+                    
+                    container.innerHTML = html;
                 }
-            } else {
-                // Общий рейтинг
-                switch(sortFilter) {
-                    case 'sessions':
-                        players.sort((a, b) => b.stats.completedSessions - a.stats.completedSessions);
-                        break;
-                    case 'avgScore':
-                        players.sort((a, b) => b.stats.averageScore - a.stats.averageScore);
-                        break;
-                    case 'streak':
-                        players.sort((a, b) => b.stats.currentStreak - a.stats.currentStreak);
-                        break;
-                    case 'xp':
-                    default:
-                        players.sort((a, b) => b.stats.totalXP - a.stats.totalXP);
-                }
+            } catch (error) {
+                showMessage('Ошибка загрузки рейтинга: ' + error.message);
+                container.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">Ошибка загрузки данных</p>';
             }
-            
-            if (players.length === 0) {
-                leaderboardBody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align: center; padding: 20px; color: #666;">
-                            Нет данных для отображения
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            players.forEach((player, index) => {
-                const row = document.createElement('tr');
-                if (player.id === auth.currentUser?.id) {
-                    row.className = 'player-you';
-                }
-                
-                let rankClass = '';
-                if (index === 0) rankClass = 'rank-1';
-                else if (index === 1) rankClass = 'rank-2';
-                else if (index === 2) rankClass = 'rank-3';
-                
-                // Определяем данные для отображения
-                let displaySessions, displayAvgScore, displayXP;
-                
-                if (verticalFilter !== 'all') {
-                    displaySessions = player.verticalStats.sessions;
-                    displayAvgScore = player.verticalStats.avgScore.toFixed(1);
-                    displayXP = player.verticalStats.xp;
-                } else {
-                    displaySessions = player.stats.completedSessions;
-                    displayAvgScore = player.stats.averageScore.toFixed(1);
-                    displayXP = player.stats.totalXP;
-                }
-                
-                row.innerHTML = `
-                    <td class="rank ${rankClass}">${index + 1}</td>
-                    <td class="player-name">${player.username} ${player.id === auth.currentUser?.id ? '(Вы)' : ''}</td>
-                    <td>${player.group || '-'}</td>
-                    <td>${player.stats.currentLevel}</td>
-                    <td>${displaySessions}</td>
-                    <td>${displayAvgScore}</td>
-                    <td>${displayXP.toFixed(0)}</td>
-                `;
-                leaderboardBody.appendChild(row);
-            });
         }
-
+        
+        // ============= ИСТОРИЯ =============
+        
         function renderHistory() {
-            if (!auth.currentUser) return;
-            
-            const historyList = document.getElementById('historyList');
-            historyList.innerHTML = '';
+            const container = document.getElementById('historyList');
+            if (!currentUser || !currentUser.history) return;
             
             const filter = document.getElementById('historyFilter').value;
-            let history = auth.currentUser.stats.trainingHistory || [];
+            let history = [...currentUser.history];
             
             if (filter === 'week') {
                 const weekAgo = new Date();
@@ -1968,29 +2143,23 @@
                 const monthAgo = new Date();
                 monthAgo.setMonth(monthAgo.getMonth() - 1);
                 history = history.filter(item => new Date(item.date) >= monthAgo);
-            } else if (filter !== 'all') {
-                history = history.filter(item => {
-                    const verticalKey = Object.keys(verticals).find(key => 
-                        item.scenario && item.scenario.includes(verticals[key].name)
-                    );
-                    return verticalKey === filter;
-                });
             }
             
-            history.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
             if (history.length === 0) {
-                historyList.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">Нет данных о тренировках</div>';
+                container.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">Нет данных о тренировках</p>';
                 return;
             }
             
+            container.innerHTML = '';
+            
             history.forEach(item => {
+                const vertical = verticals[item.vertical];
                 const historyItem = document.createElement('div');
                 historyItem.className = 'history-item';
                 historyItem.innerHTML = `
-                    <div class="history-icon">${item.icon}</div>
+                    <div class="history-icon">${item.icon || (vertical ? vertical.icon : '🎯')}</div>
                     <div class="history-details">
-                        <div class="history-scenario">${item.scenario}</div>
+                        <div class="history-scenario">${item.scenario || (vertical ? vertical.name : 'Тренировка')}</div>
                         <div class="history-meta">
                             <span>${formatDate(item.date)}</span>
                             <span>+${item.xp} XP</span>
@@ -1999,212 +2168,30 @@
                     </div>
                     <div class="history-score">${item.score}/5</div>
                 `;
-                historyList.appendChild(historyItem);
+                container.appendChild(historyItem);
             });
         }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('ru-RU', {
-                day: 'numeric',
-                month: 'short',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
-
-        function awardXP(score, scenario) {
-            if (!auth.currentUser) return 0;
-            
-            let xpEarned = 50;
-            
-            if (score === 5) xpEarned += 30;
-            else if (score === 4) xpEarned += 20;
-            else if (score === 3) xpEarned += 10;
-            
-            if (auth.currentUser.stats.currentStreak > 0) {
-                xpEarned += Math.min(auth.currentUser.stats.currentStreak * 5, 25);
-            }
-            
-            // Обновляем общую статистику
-            auth.currentUser.stats.totalXP += xpEarned;
-            auth.currentUser.stats.completedSessions++;
-            auth.currentUser.stats.totalScore += score;
-            auth.currentUser.stats.averageScore = auth.currentUser.stats.totalScore / auth.currentUser.stats.completedSessions;
-            
-            // Обновляем статистику по вертикалям
-            const verticalKey = Object.keys(verticals).find(key => scenario.includes(verticals[key].name));
-            if (verticalKey) {
-                const verticalStats = auth.currentUser.stats.verticalsCompleted[verticalKey];
-                verticalStats.sessions += 1;
-                verticalStats.totalXP += xpEarned;
-                verticalStats.totalScore += score;
-                verticalStats.avgScore = verticalStats.totalScore / verticalStats.sessions;
-            }
-            
-            // Обновляем дату последней тренировки и серию
-            const today = new Date().toISOString().split('T')[0];
-            if (auth.currentUser.stats.lastTrainingDate !== today) {
-                const lastDate = auth.currentUser.stats.lastTrainingDate ? new Date(auth.currentUser.stats.lastTrainingDate) : null;
-                const todayDate = new Date();
-                
-                if (lastDate && (todayDate - lastDate) / (1000 * 60 * 60 * 24) === 1) {
-                    auth.currentUser.stats.currentStreak++;
-                } else if (!lastDate || (todayDate - lastDate) / (1000 * 60 * 60 * 24) > 1) {
-                    auth.currentUser.stats.currentStreak = 1;
-                }
-                auth.currentUser.stats.lastTrainingDate = today;
-            }
-            
-            // Добавляем в историю
-            auth.currentUser.stats.trainingHistory.unshift({
-                date: new Date().toISOString(),
-                scenario: scenario,
-                score: score,
-                xp: xpEarned,
-                icon: Object.values(verticals).find(v => scenario.includes(v.name))?.icon || "🎯",
-                vertical: verticalKey
-            });
-            
-            checkAchievements();
-            saveStats();
-            updateProgressUI();
-            renderVerticalStats();
-            renderLeaderboard();
-            renderHistory();
-            renderProgressChart();
-            loadGroupStats(); // Обновляем статистику группы на главной
-            
-            return xpEarned;
-        }
-
-        function checkLevelUp() {
-            if (!auth.currentUser) return;
-            
-            const userStats = auth.currentUser.stats;
-            const nextLevel = levels.find(l => l.level === userStats.currentLevel + 1);
-            if (nextLevel && userStats.totalXP >= nextLevel.requiredXP) {
-                userStats.currentLevel++;
-                showResultModal(`🎉 Уровень повышен!`, `Теперь вы ${levels.find(l => l.level === userStats.currentLevel).name}!`, "🆙");
-                saveStats();
-                updateProgressUI();
-            }
-        }
-
-        function checkAchievements() {
-            if (!auth.currentUser) return;
-            
-            const newAchievements = [];
-            const userStats = auth.currentUser.stats;
-            
-            if (userStats.completedSessions >= 3 && !userStats.achievementsUnlocked.includes("three_sessions")) {
-                newAchievements.push("three_sessions");
-            }
-            
-            if (userStats.averageScore >= 4.5 && !userStats.achievementsUnlocked.includes("score_5")) {
-                newAchievements.push("score_5");
-            }
-            
-            if (userStats.currentStreak >= 3 && !userStats.achievementsUnlocked.includes("streak_3")) {
-                newAchievements.push("streak_3");
-            }
-            
-            if (userStats.currentLevel >= 3 && !userStats.achievementsUnlocked.includes("level_3")) {
-                newAchievements.push("level_3");
-            }
-            
-            // Проверяем все вертикали
-            const verticalsCompleted = Object.values(userStats.verticalsCompleted);
-            const triedAllVerticals = verticalsCompleted.every(v => v.sessions > 0);
-            if (triedAllVerticals && !userStats.achievementsUnlocked.includes("all_verticals")) {
-                newAchievements.push("all_verticals");
-            }
-            
-            updateRankPosition();
-            const allPlayers = auth.getAllUsers();
-            allPlayers.sort((a, b) => b.stats.totalXP - a.stats.totalXP);
-            const rank = allPlayers.findIndex(p => p.id === auth.currentUser.id) + 1;
-            if (rank <= 3 && !userStats.achievementsUnlocked.includes("top_3")) {
-                newAchievements.push("top_3");
-            }
-            
-            if (userStats.averageScore >= 4.0 && !userStats.achievementsUnlocked.includes("consistency")) {
-                newAchievements.push("consistency");
-            }
-            
-            newAchievements.forEach(ach => {
-                if (!userStats.achievementsUnlocked.includes(ach)) {
-                    userStats.achievementsUnlocked.push(ach);
-                    const achievement = achievements.find(a => a.id === ach);
-                    if (achievement) {
-                        showResultModal(`🏆 Новое достижение!`, achievement.name, achievement.icon);
-                    }
-                }
-            });
-        }
-
-        function updateGroupFilter() {
-            auth.updateGroupFilter();
-        }
-
-        // ============= УПРАВЛЕНИЕ ВКЛАДКАМИ =============
         
-        document.addEventListener('DOMContentLoaded', function() {
-            // Обработчики вкладок
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabId = this.dataset.tab;
-                    
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    
-                    this.classList.add('active');
-                    document.getElementById(`${tabId}-tab`).classList.add('active');
-                    
-                    // Обновляем данные при переходе на вкладку
-                    if (tabId === 'progress') {
-                        renderProgressChart();
-                    } else if (tabId === 'home') {
-                        loadHomePageData();
-                    }
-                });
+        // ============= ТРЕНИРОВКА =============
+        
+        function setupTrainingListeners() {
+            // Следим за чекбоксом безопасности
+            document.getElementById('securityConfirm').addEventListener('change', function() {
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.disabled = !this.checked;
             });
-            
-            // Обработчики вертикалей
-            document.querySelectorAll('.vertical-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    if (trainingInProgress) {
-                        if (!confirm('У вас есть незавершенная тренировка. Вы уверены, что хотите выбрать другую вертикаль?')) {
-                            return;
-                        }
-                        resetTrainingState();
-                    }
-                    
-                    document.querySelectorAll('.vertical-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    selectedVertical = this.dataset.vertical;
-                    const vertical = verticals[selectedVertical];
-                    
-                    if (vertical) {
-                        document.getElementById('scenarioTitle').textContent = vertical.name;
-                        document.getElementById('scenarioDescription').textContent = getScenarioDescription(selectedVertical);
-                        document.getElementById('scenarioCard').classList.add('active');
-                        
-                        resetTrainingState();
-                    }
-                });
-            });
-        });
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
-            document.getElementById(`${tabName}-tab`).classList.add('active');
         }
-
+        
+        function loadTrainingScenario() {
+            if (!currentUser) return;
+            
+            const vertical = verticals[currentUser.vertical];
+            if (!vertical) return;
+            
+            document.getElementById('scenarioTitle').textContent = vertical.name;
+            document.getElementById('scenarioDescription').textContent = getScenarioDescription(currentUser.vertical);
+        }
+        
         function getScenarioDescription(vertical) {
             const descriptions = {
                 loyalty: "Клиент обращается по поводу блокировки карты лояльности. Определите тип клиента и адаптируйте стиль общения.",
@@ -2216,62 +2203,50 @@
             };
             return descriptions[vertical] || "Определите тип клиента и адаптируйте стиль общения.";
         }
-
-        function resetTrainingState() {
-            promptCopied = false;
-            trainingInProgress = false;
-            
-            document.getElementById('copyBtn').disabled = false;
-            document.getElementById('startBtn').disabled = true;
-            document.getElementById('completeBtn').style.display = 'none';
-            
-            document.getElementById('copyBtn').innerHTML = '<span>📋</span> Скопировать инструкцию';
-            document.getElementById('startBtn').innerHTML = '<span>🚀</span> Начать тренировку';
-            document.getElementById('startBtn').disabled = true;
-            document.getElementById('startBtn').style.display = 'flex';
-        }
-
-        // ============= ТРЕНИРОВКА =============
         
         function copyPrompt() {
-            if (!auth.currentUser) {
-                alert('Сначала войдите в систему!');
+            if (!currentUser) {
+                showMessage('Сначала войдите в систему');
                 return;
             }
             
-            if (!selectedVertical) {
-                alert('Сначала выберите сценарий!');
+            // Проверяем согласие с безопасностью
+            if (!document.getElementById('securityConfirm').checked) {
+                showMessage('Подтвердите согласие с правилами безопасности');
                 return;
             }
             
-            if (!prompts[selectedVertical]) {
-                alert('Для этой вертикали еще нет промта');
+            const vertical = verticals[currentUser.vertical];
+            if (!vertical || !vertical.prompt) {
+                showMessage('Для этой вертикали нет промта');
                 return;
             }
             
             const textArea = document.createElement('textarea');
-            textArea.value = prompts[selectedVertical];
+            textArea.value = vertical.prompt;
             document.body.appendChild(textArea);
             textArea.select();
             document.execCommand('copy');
             document.body.removeChild(textArea);
             
-            promptCopied = true;
+            // Показываем инструкции
+            document.getElementById('trainingInstructions').style.display = 'block';
             document.getElementById('startBtn').disabled = false;
-            document.getElementById('copyBtn').innerHTML = '<span>✅</span> Инструкция скопирована';
+            document.getElementById('copyBtn').innerHTML = '<i class="fas fa-check"></i> Инструкция скопирована';
             document.getElementById('copyBtn').disabled = true;
             
-            alert('✅ Промт скопирован в буфер обмена!\n\nТеперь нажмите "Начать тренировку"');
+            showMessage('Промт скопирован в буфер обмена!', 'success');
         }
-
+        
         function startTraining() {
-            if (!auth.currentUser) {
-                alert('Сначала войдите в систему!');
+            if (!currentUser) {
+                showMessage('Сначала войдите в систему');
                 return;
             }
             
-            if (!promptCopied) {
-                alert('Сначала скопируйте инструкцию!');
+            // Проверяем согласие с безопасностью
+            if (!document.getElementById('securityConfirm').checked) {
+                showMessage('Подтвердите согласие с правилами безопасности');
                 return;
             }
             
@@ -2281,17 +2256,17 @@
             document.getElementById('startBtn').style.display = 'none';
             document.getElementById('completeBtn').style.display = 'flex';
             
-            alert('🎯 Тренировка начата!\n\n1. Вставьте промт в чат DeepSeek (Ctrl+V)\n2. Пройдите диалог за 15 минут\n3. Получите оценку от DeepSeek\n4. Вернитесь сюда и нажмите "Завершить тренировку"');
+            showMessage('Тренировка начата! Откройте DeepSeek в новой вкладке.', 'success');
         }
-
-        function completeTraining() {
-            if (!auth.currentUser) {
-                alert('Сначала войдите в систему!');
+        
+        async function completeTraining() {
+            if (!currentUser) {
+                showMessage('Сначала войдите в систему');
                 return;
             }
             
             if (!trainingInProgress) {
-                alert('Сначала начните тренировку!');
+                showMessage('Сначала начните тренировку');
                 return;
             }
             
@@ -2299,26 +2274,44 @@
             const numericScore = parseInt(score);
             
             if (numericScore >= 1 && numericScore <= 5) {
-                const scenario = document.getElementById('scenarioTitle').textContent;
-                const xpEarned = awardXP(numericScore, scenario);
-                
-                showResultModal(
-                    `Тренировка завершена!`,
-                    `Вы получили ${numericScore}/5 баллов\n${verticals[selectedVertical]?.name || 'Сценарий'}`,
-                    numericScore >= 4 ? "⭐" : "📝",
-                    xpEarned
-                );
-                
-                resetTrainingState();
-                
+                try {
+                    const result = await callGoogleScript('saveTraining', {
+                        userId: currentUser.id,
+                        score: numericScore,
+                        vertical: currentUser.vertical
+                    });
+                    
+                    if (result.success) {
+                        showResultModal(
+                            `Тренировка завершена!`,
+                            `Вы получили ${numericScore}/5 баллов\n${verticals[currentUser.vertical]?.name || 'Сценарий'}`,
+                            numericScore >= 4 ? "⭐" : "📝",
+                            result.data.xpEarned
+                        );
+                        
+                        // Обновляем данные
+                        loadUserData();
+                        
+                        // Сбрасываем состояние тренировки
+                        trainingInProgress = false;
+                        document.getElementById('startBtn').style.display = 'flex';
+                        document.getElementById('completeBtn').style.display = 'none';
+                        document.getElementById('copyBtn').innerHTML = '<i class="fas fa-copy"></i> Скопировать инструкцию';
+                        document.getElementById('copyBtn').disabled = false;
+                        document.getElementById('trainingInstructions').style.display = 'none';
+                        document.getElementById('securityConfirm').checked = false;
+                    }
+                } catch (error) {
+                    showMessage('Ошибка сохранения тренировки: ' + error.message);
+                }
             } else if (score === null) {
                 // Пользователь отменил ввод
                 return;
             } else {
-                alert('Пожалуйста, введите число от 1 до 5');
+                showMessage('Пожалуйста, введите число от 1 до 5');
             }
         }
-
+        
         function showResultModal(title, message, icon, xpEarned = null) {
             document.getElementById('resultTitle').textContent = title;
             document.getElementById('resultMessage').textContent = message;
@@ -2333,14 +2326,60 @@
             
             document.getElementById('resultModal').style.display = 'flex';
         }
-
+        
         function closeResultModal() {
             document.getElementById('resultModal').style.display = 'none';
         }
-
-        function updateLeaderboard() {
-            renderLeaderboard();
+        
+        // ============= УПРАВЛЕНИЕ ВКЛАДКАМИ =============
+        
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.querySelector(`.tab[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            // Обновляем данные при переходе на вкладку
+            if (tabName === 'progress') {
+                renderProgressChart();
+            } else if (tabName === 'home') {
+                loadHomeStats();
+            } else if (tabName === 'leaderboard') {
+                renderLeaderboard();
+            }
         }
+        
+        // ============= ИНИЦИАЛИЗАЦИЯ =============
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверяем сохраненного пользователя
+            const savedUser = localStorage.getItem('dialogue_currentUser');
+            if (savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    showMainApp();
+                } catch (e) {
+                    localStorage.removeItem('dialogue_currentUser');
+                    showAuthModal();
+                }
+            } else {
+                showAuthModal();
+            }
+            
+            // Обработчики вкладок
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    switchTab(tabId);
+                });
+            });
+            
+            // Обработчики фильтров
+            document.getElementById('periodFilter')?.addEventListener('change', renderLeaderboard);
+            document.getElementById('sortFilter')?.addEventListener('change', renderLeaderboard);
+            document.getElementById('historyFilter')?.addEventListener('change', renderHistory);
+        });
     </script>
 </body>
 </html>
